@@ -6,7 +6,7 @@ class CarParent extends React.Component {
       <>
         <h1> car parent component</h1>
         <i>following is the example of state change in component </i>
-        <Car />
+        <Car favColor="yellow" />
       </>
     );
   }
@@ -23,24 +23,28 @@ class Car extends React.Component {
         year: 1964
     };
   }
-
-//  To change a value in the state object, use the this.setState() method.
-// When a value in the state object changes, the component will re-render, meaning that the output will change according to the new value(s).
-
-  handleClick = () => {
-    this.setState({color:"blue", year:this.state.year+1 })
-  }
+  
+  static getDerivedStateFromProps(props, state) {
+    return {color: props.favColor, brand:"maruti" };
+}
 
   render() {
-    return (
+      return (
       <>
         <h2>Hi i'm {this.state.brand}</h2>
         model : {this.state.model}
         <br/>color : {this.state.color}
         <br/>year : {this.state.year}
-        <br/><button onClick={this.handleClick}>change color</button>
       </>
     );
   }
 }
 export default CarParent;
+
+    // The getDerivedStateFromProps() method is called right before rendering the element(s) in the DOM. This is the natural place to set the state object based on the initial props.
+    
+    // It takes state as an argument, and returns an object with changes to the state.
+    
+    // The example below starts with the favorite color being "red", but the getDerivedStateFromProps() method updates the favorite color based on the favcol attribute:
+    
+    // note: Lifecycle method should be static: getDerivedStateFromProps
