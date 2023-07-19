@@ -22,26 +22,23 @@ class Car extends React.Component {
       year: 1964,
     };
 }
-// note: Lifecycle method should be static: getDerivedStateFromProps
-// static getDerivedStateFromProps(props, state) {
-//     console.log("getDerivedStateFromProps")
-//     return { color: props.favColor, brand: "maruti" };
-//   }
+shouldComponentUpdate(){
+    // if return true than color changes by defalut it is true
+    // if return false than color does not change
+    return false
+}
 
-  componentDidMount(){
-    // note : don't use getDerivedStateFromProps otherwise it wont show any change because as soon componentdidmount fires state change due to which component re-renders and picks up the state from getDerivedStateFromProps
-    setTimeout(() => this.setState({color: "purple"}), 2000)
-    console.log("after getDerivedStateFromProps")
-  }
+changeColor(str){
+    this.setState({color:str})
+}
   render() {
     return (
       <>
         <h2>Hi i'm {this.state.brand}</h2>
         model : {this.state.model}
-        <br />
-        color : {this.state.color}
-        <br />
-        year : {this.state.year}
+        <br />color : {this.state.color}
+        <br/>year : {this.state.year}
+        <br /><button onClick={()=>this.changeColor("magenta")}>change color</button>
       </>
     );
   }
