@@ -22,14 +22,19 @@ class Car extends React.Component {
       year: 1964,
     };
 }
-shouldComponentUpdate(){
-    // if return true than color changes by defalut it is true
-    // if return false than color does not change
-    return false
-}
 
 changeColor(str){
     this.setState({color:str})
+}
+componentDidMount(){
+    setTimeout(()=>this.setState({color:"burgandy"}) , 2000)
+}
+getSnapshotBeforeUpdate(prevProps, prevState){
+    document.getElementById("div1").innerHTML = prevState.color
+}
+
+componentDidUpdate(){
+    document.getElementById("div2").innerHTML = this.state.color
 }
   render() {
     return (
@@ -39,6 +44,8 @@ changeColor(str){
         <br />color : {this.state.color}
         <br/>year : {this.state.year}
         <br /><button onClick={()=>this.changeColor("magenta")}>change color</button>
+        <div id="div1"></div>
+        <div id="div2"></div>
       </>
     );
   }
